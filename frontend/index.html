@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Guess the Number Game</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<h1>Guess the Number</h1>
-<button onclick="startGame()">Start</button><br>
-<input type="number" id="guessInput">
-<button onclick="makeGuess()">Guess</button>
-<p id="result"></p>
 
-<script>
-let gameId;
-function startGame(){
-    fetch("http://localhost:8080/api/game/start",{method:"POST"})
-    .then(res=>res.json()).then(data=>{gameId=data.id;document.getElementById("result").innerText="Game Started!";});
-}
-function makeGuess(){
-    const guess=document.getElementById("guessInput").value;
-    fetch(`http://localhost:8080/api/game/guess/${gameId}?number=${guess}`,{method:"POST"})
-    .then(res=>res.text()).then(text=>document.getElementById("result").innerText=text);
-}
-</script>
+<head>
+    <meta charset="UTF-8">
+    <title>Guess the Number Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Guess the Number</h1>
+    <button onclick="startGame()">Start</button><br>
+    <input type="number" id="guessInput">
+    <button onclick="makeGuess()">Guess</button>
+    <p id="result"></p>
+
+    <script>
+        let gameId;
+        function startGame() {
+            fetch("http://localhost:8080/api/game/start", { method: "POST" })
+                .then(res => res.json()).then(data => { gameId = data.id; document.getElementById("result").innerText = "Game Started!"; });
+        }
+        function makeGuess() {
+            const guess = document.getElementById("guessInput").value;
+            fetch(`http://localhost:8080/api/game/guess/${gameId}?number=${guess}`, { method: "POST" })
+                .then(res => res.text()).then(text => document.getElementById("result").innerText = text);
+        }
+    </script>
 </body>
+
 </html>
